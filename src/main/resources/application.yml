@@ -1,0 +1,17 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/kit
+    username: postgres
+    password: 123
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      leak-detection-threshold: 30000
+  flyway:
+    locations: classpath:/db/migration
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
