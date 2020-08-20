@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "2.3.2.RELEASE"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
+    id("com.avast.gradle.docker-compose") version "0.13.0"
     kotlin("jvm") version "1.3.72"
     kotlin("plugin.spring") version "1.3.72"
     kotlin("plugin.jpa") version "1.3.72"
@@ -51,3 +52,23 @@ tasks.withType<KotlinCompile> {
         jvmTarget = "11"
     }
 }
+
+//tasks.register<Exec>("gitBranchName") {
+//    val command = "git rev-parse --abbrev-ref HEAD"
+//    commandLine = listOf("cmd", "/c", command)
+//}
+
+//tasks.register<Exec>("dbReset") {
+//    val command = "docker volume rm ${project.name} || true"
+//    commandLine = listOf("cmd", "/c", command)
+//}
+
+dockerCompose {
+    environment["POSTGRES_VOLUME_NAME"] = "${project.name}_pgdata"
+    useComposeFiles.add("docker-compose.yml")
+    composeLogToFile = File("build/container-logs/composeUp.log")
+    captureContainersOutputToFiles = File("build/container-logs")
+}
+
+dockerCompose.isRequiredBy(project.tasks.named("bootRun").get())
+dockerCompose.isRequiredBy(project.tasks.named("test").get())

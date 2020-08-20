@@ -2,8 +2,10 @@ server:
   port: 8081
 
 spring:
+  application:
+    name: kit
   datasource:
-    url: jdbc:postgresql://localhost:5432/kit
+    url: jdbc:postgresql://localhost:54320/kit
     username: postgres
     password: 123
     driver-class-name: org.postgresql.Driver
