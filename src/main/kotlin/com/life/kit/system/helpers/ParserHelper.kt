@@ -1,8 +1,8 @@
-package com.life.kit.modules.system.helpers
+package com.life.kit.system.helpers
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.life.kit.modules.system.json.ExtraJson
+import com.life.kit.system.json.ExtraJson
 import org.springframework.stereotype.Component
 
 @Component

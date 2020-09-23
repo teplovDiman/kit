@@ -1,4 +1,4 @@
-package com.life.kit.modules.system.dto
+package com.life.kit.system.dto
 
 open class BaseDto {
 

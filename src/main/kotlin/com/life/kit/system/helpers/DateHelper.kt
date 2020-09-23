@@ -1,4 +1,4 @@
-package com.life.kit.modules.system.helpers
+package com.life.kit.system.helpers
 
 import org.springframework.stereotype.Component
 import java.time.LocalDate

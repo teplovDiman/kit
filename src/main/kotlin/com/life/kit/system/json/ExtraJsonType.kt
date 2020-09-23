@@ -1,4 +1,4 @@
-package com.life.kit.modules.system.json
+package com.life.kit.system.json
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.hibernate.HibernateException

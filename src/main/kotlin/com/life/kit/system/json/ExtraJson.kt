@@ -1,4 +1,4 @@
-package com.life.kit.modules.system.json
+package com.life.kit.system.json
 
 import java.io.Serializable
 

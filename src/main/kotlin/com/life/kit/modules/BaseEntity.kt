@@ -1,4 +1,4 @@
-package com.life.kit.core.base
+package com.life.kit.modules
 
 import javax.persistence.Access
 import javax.persistence.AccessType
