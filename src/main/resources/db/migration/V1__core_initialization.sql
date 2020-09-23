@@ -8,7 +8,7 @@
 create table core_profile
 (
     id                 bigserial        primary key,
-    type               varchar(20)      null,
+    type               integer          null,
     first_name         varchar(255)     null,
     middle_name        varchar(255)     null,
     last_name          varchar(255)     null,
@@ -17,8 +17,8 @@ create table core_profile
 
 create index if not exists core_profile_type_index on core_profile(type);
 
-insert into core_profile (first_name, last_name, birth_date)
-values ('Anakin', 'Skywalker', now());
+insert into core_profile (type, first_name, last_name, birth_date)
+values (0, 'Anakin', 'Skywalker', now());
 
 -------------------- permission ----------------------
 create table core_permission
@@ -139,53 +139,4 @@ create table core_country
 (
     id   bigserial    primary key,
     name varchar(255) not null unique
-);
-
-
-
-------------------------------------------------------
------------ M O D U L E     N O T E ------------------
-------------------------------------------------------
-
-
--------------------- note ----------------------------
-create table note
-(
-    id           bigserial    primary key,
-    user_id      bigint       not null references core_users,
-    created_at   timestamp    default now() not null,
-    title        varchar(500)     null,
-    value        text         not null
-);
-
-create index if not exists note_user_id_index on note(user_id);
-
--------------------- note_tag ------------------------
-
-create table note_tag
-(
-    id   bigserial    primary key,
-    name varchar(500) not null unique
-);
-
-create index if not exists note_tag_name_index on note_tag(name);
-
--------------------- note_tag_to_user ----------------
-
-create table note_tag_to_user
-(
-    id          bigserial primary key,
-    user_id     bigint    not null references core_users,
-    note_tag_id bigint    not null references note_tag,
-
-    unique (note_tag_id, user_id)
-);
--------------------- note_tag_to_note ----------------
-
-create table note_tag_to_note
-(
-    note_id     bigint not null references note,
-    note_tag_id bigint not null references note_tag,
-
-    unique (note_id, note_tag_id)
 );
