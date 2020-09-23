@@ -7,11 +7,15 @@ plugins {
     kotlin("jvm") version "1.3.72"
     kotlin("plugin.spring") version "1.3.72"
     kotlin("plugin.jpa") version "1.3.72"
+    kotlin("kapt") version "1.4.10"
 }
 
 group = "com.life"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_14
+
+val mapstructVersion by extra("1.3.1.Final")
+val entityGraphVersion by extra("2.3.1")
 
 configurations {
     compileOnly {
@@ -24,6 +28,9 @@ repositories {
 }
 
 dependencies {
+    compileOnly("com.cosium.spring.data:spring-data-jpa-entity-graph:$entityGraphVersion")
+    compileOnly("org.mapstruct:mapstruct:$mapstructVersion")
+
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -35,11 +42,17 @@ dependencies {
 
     runtimeOnly("org.postgresql:postgresql")
 
+    annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVersion")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         // exclude migration from Junit 4 to Junit 5
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
     testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("com.cosium.spring.data:spring-data-jpa-entity-graph:$entityGraphVersion")
+    testAnnotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVersion")
+
+    kapt("org.mapstruct:mapstruct-jdk8:$mapstructVersion")
 }
 
 tasks.withType<Test> {
