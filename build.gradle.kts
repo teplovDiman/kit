@@ -20,8 +20,8 @@ val archivesBaseName = "kit"
 java.sourceCompatibility = JavaVersion.VERSION_15
 java.targetCompatibility = JavaVersion.VERSION_15
 
-val mapstructVersion by extra("1.3.1.Final")
-val entityGraphVersion by extra("2.3.1")
+val mapstructVersion by extra("1.4.1.Final")
+val entityGraphVersion by extra("2.4.1")
 
 configurations {
     compileOnly {
