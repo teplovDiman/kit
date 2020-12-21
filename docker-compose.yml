@@ -26,6 +26,7 @@ services:
       - "8081"
     ports:
       - "8081:8081"
+      - "10005:8000"
     networks:
       - develop
     depends_on:
