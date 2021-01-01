@@ -1,8 +1,8 @@
-package com.life.kit.container.modules.user_role_permission.role
+package com.life.kit.modules.user_role_permission.role
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.life.kit.container.modules.BaseEntity
-import com.life.kit.container.modules.user_role_permission.permission.PermissionEntity
+import com.life.kit.modules.BaseEntity
+import com.life.kit.modules.user_role_permission.permission.PermissionEntity
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType.EAGER

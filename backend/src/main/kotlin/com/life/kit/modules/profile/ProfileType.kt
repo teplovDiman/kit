@@ -1,4 +1,4 @@
-package com.life.kit.container.modules.profile
+package com.life.kit.modules.profile
 
 enum class ProfileType(val value: Int) {
     USER(1)

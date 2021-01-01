@@ -1,4 +1,4 @@
-package com.life.kit.container.security
+package com.life.kit.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

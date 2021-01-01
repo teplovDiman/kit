@@ -1,4 +1,4 @@
-package com.life.kit.container
+package com.life.kit
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

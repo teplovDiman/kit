@@ -109,8 +109,8 @@ dockerCompose {
     environment["APPLICATION_NAME"] = rootProject.name
     environment["POSTGRES_VOLUME_NAME"] = "${rootProject.name}_volume"
     useComposeFiles.add("docker-compose.yml")
-    composeLogToFile = File("container/build/logs/composeUp.log")
-    captureContainersOutputToFiles = File("container/build/logs")
+    composeLogToFile = File("backend/build/logs/composeUp.log")
+    captureContainersOutputToFiles = File("backend/build/logs")
 }
 
 dockerCompose.isRequiredBy(project.tasks.named("bootRun").get())

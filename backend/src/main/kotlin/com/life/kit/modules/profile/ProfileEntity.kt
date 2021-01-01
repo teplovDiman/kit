@@ -1,6 +1,6 @@
-package com.life.kit.container.modules.profile
+package com.life.kit.modules.profile
 
-import com.life.kit.container.modules.BaseEntity
+import com.life.kit.modules.BaseEntity
 import java.time.LocalDate
 import javax.persistence.Column
 import javax.persistence.Entity

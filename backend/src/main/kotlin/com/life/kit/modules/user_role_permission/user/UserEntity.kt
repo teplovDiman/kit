@@ -1,8 +1,8 @@
-package com.life.kit.container.modules.user_role_permission.user
+package com.life.kit.modules.user_role_permission.user
 
-import com.life.kit.container.modules.BaseEntity
-import com.life.kit.container.modules.user_role_permission.role.RoleEntity
-import com.life.kit.container.modules.profile.ProfileEntity
+import com.life.kit.modules.BaseEntity
+import com.life.kit.modules.user_role_permission.role.RoleEntity
+import com.life.kit.modules.profile.ProfileEntity
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType.LAZY

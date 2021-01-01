@@ -1,4 +1,4 @@
-package com.life.kit.container.system.configs
+package com.life.kit.configs
 
 import com.cosium.spring.data.jpa.entity.graph.repository.support.EntityGraphJpaRepositoryFactoryBean
 import org.springframework.context.annotation.Configuration
