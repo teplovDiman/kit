@@ -51,6 +51,8 @@ dependencies {
     kapt("org.mapstruct:mapstruct-jdk8:$mapstructVersion")
 }
 
+//-------------------- Configuration tasks --------------
+
 tasks.withType<Test> {
     useJUnitPlatform()
 }
@@ -58,9 +60,15 @@ tasks.withType<Test> {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = java.targetCompatibility.toString()
+        jvmTarget = JavaVersion.VERSION_13.toString()
     }
 }
+
+tasks.bootJar {
+    archiveFileName.set("${rootProject.name}.jar")
+}
+
+//-------------------- Kit project tasks ----------------
 
 tasks.register<Copy>("copyDockerfile") {
     from("./docker")
@@ -70,10 +78,6 @@ tasks.register<Copy>("copyDockerfile") {
 tasks.register<Copy>("copyDBScripts") {
     from("./../data/migration")
     into("./build/resources/main/data/migration")
-}
-
-tasks.bootJar {
-    archiveFileName.set("${rootProject.name}.jar")
 }
 
 task<Exec>("clearUp") {
@@ -103,6 +107,8 @@ task<Exec>("clearUp") {
 
     commandLine(shellType, "-c", "echo Docker clear up finisher")
 }
+
+//-------------------------------------------------------
 
 dockerCompose {
     projectName = rootProject.name
