@@ -19,7 +19,7 @@ create table core_profile
 create index if not exists core_profile_type_index on core_profile(type);
 
 insert into core_profile (type, first_name, last_name, is_man, birth_date)
-values (1, 'Anakin', 'Skywalker', true, now());
+values (1, 'Che', 'Guevara', true, now());
 
 -------------------- permission ----------------------
 create table core_permission

@@ -3,14 +3,14 @@ import org.apache.tools.ant.taskdefs.condition.Os
 import java.io.ByteArrayOutputStream
 
 plugins {
-    id("org.springframework.boot") version "2.4.1"
-    id("io.spring.dependency-management") version "1.0.10.RELEASE"
-    id("com.avast.gradle.docker-compose") version "0.13.4"
-    id("org.flywaydb.flyway") version "7.3.2"
-    kotlin("jvm") version "1.4.21"
-    kotlin("plugin.spring") version "1.4.21"
-    kotlin("plugin.jpa") version "1.3.72"
-    kotlin("kapt") version "1.4.21"
+    id("org.springframework.boot")
+    id("io.spring.dependency-management")
+    id("com.avast.gradle.docker-compose")
+    id("org.flywaydb.flyway")
+    kotlin("jvm")
+    kotlin("plugin.spring")
+    kotlin("plugin.jpa")
+    kotlin("kapt")
 }
 
 val mapstructVersion by extra("1.4.1.Final")
@@ -20,10 +20,6 @@ configurations {
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())
     }
-}
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {
@@ -38,6 +34,8 @@ dependencies {
     implementation("org.flywaydb:flyway-core")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+    implementation(project(":user"))
 
     runtimeOnly("org.postgresql:postgresql")
 
@@ -76,7 +74,7 @@ tasks.register<Copy>("copyDockerfile") {
 }
 
 tasks.register<Copy>("copyDBScripts") {
-    from("./../data/migration")
+    from("./../../data/migration")
     into("./build/resources/main/data/migration")
 }
 
@@ -115,8 +113,8 @@ dockerCompose {
     environment["APPLICATION_NAME"] = rootProject.name
     environment["POSTGRES_VOLUME_NAME"] = "${rootProject.name}_volume"
     useComposeFiles.add("docker-compose.yml")
-    composeLogToFile = File("backend/build/logs/composeUp.log")
-    captureContainersOutputToFiles = File("backend/build/logs")
+    composeLogToFile = File("backend/app/build/logs/composeUp.log")
+    captureContainersOutputToFiles = File("backend/app/build/logs")
 }
 
 dockerCompose.isRequiredBy(project.tasks.named("bootRun").get())
