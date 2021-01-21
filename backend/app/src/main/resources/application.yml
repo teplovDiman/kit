@@ -15,8 +15,7 @@ spring:
     hikari:
       leak-detection-threshold: 30000
   flyway:
-    locations: classpath:/data/migration
-    enabled: true
+    out-of-order: true
   jpa:
     properties:
       hibernate:

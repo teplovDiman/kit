@@ -12,14 +12,15 @@ import javax.persistence.ManyToMany
 import javax.persistence.Table
 
 @Entity
-@Table(name = "core_role")
+@Table(schema = "users", name = "role")
 class RoleEntity : BaseEntity() {
 
     @Column(name = "name", nullable = false, unique = true)
     var name: String? = null
 
     @ManyToMany(fetch = EAGER)
-    @JoinTable(name = "core_permission_to_role",
+    @JoinTable(schema = "users",
+               name = "permission_to_role",
                joinColumns = [JoinColumn(name = "role_id")],
                inverseJoinColumns = [JoinColumn(name = "permission_id")])
     @JsonIgnore

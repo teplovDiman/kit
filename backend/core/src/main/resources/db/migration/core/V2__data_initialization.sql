@@ -1,89 +1,7 @@
-------------------------------------------------------
------------ M O D U L E     P R O F I L E ------------
-------------------------------------------------------
-
-
-
--------------------- profile -------------------------
-create table core_profile
-(
-    id                 bigserial        primary key,
-    type               integer          not null,
-    first_name         varchar(255)     null,
-    middle_name        varchar(255)     null,
-    last_name          varchar(255)     null,
-    is_man             boolean          null,
-    birth_date         date             null
-);
-
-create index if not exists core_profile_type_index on core_profile(type);
-
-insert into core_profile (type, first_name, last_name, is_man, birth_date)
-values (1, 'Che', 'Guevara', true, now());
-
--------------------- permission ----------------------
-create table core_permission
-(
-    id          bigserial    primary key,
-    name        varchar(31)  not null unique,
-    description varchar(355) not null
-);
-
--------------------- role ----------------------------
-create table core_role
-(
-    id   bigserial    primary key,
-    name varchar(255) not null unique
-);
-
-insert into core_role(name)
-values ('admin'), ('moderator'), ('user');
-
--------------------- role_permission ------------------
-create table core_permission_to_role
-(
-    id            bigserial primary key,
-    role_id       bigint    not null references core_role,
-    permission_id bigint    not null references core_permission,
-
-    unique (role_id, permission_id)
-);
-
-create index if not exists core_permission_to_role_role_id_index on core_permission_to_role(role_id);
-
--------------------- users ----------------------------
-create table core_users
-(
-    id            bigserial               primary key,
-    username      varchar(50)             not null unique,
-    email         varchar(50)             not null unique,
-    password_hash varchar(60)             not null,
-    profile_id    bigint                  not null references core_profile,
-    role_id       bigint                  not null references core_role
-);
-
-create index if not exists core_users_username_email_index on core_users(username, email);
-
-insert into core_users (username, email, password_hash, profile_id, role_id)
-values ('admin', 'admin@admin.com', '$2a$10$XmtWixcSIQVNuX.j3SY7ZegiojYcKp.yE1MtqgF7VAy6e1GclZITm', 1, 1);
-
-
-
-------------------------------------------------------
------------ M O D U L E     C O M M O N --------------
-------------------------------------------------------
-
-
+set search_path to core;
 
 -------------------- language & country --------------
-create table core_language
-(
-    id   bigserial    primary key,
-    code varchar(2)   not null unique,
-    name varchar(255) not null unique
-);
-
-insert into core_language (code, name)
+insert into language (code, name)
 values
 ('ru', 'Русский'      ), ('uk', 'Украинский'     ), ('en', 'Английский'     ), ('de', 'Немецкий'         ),
 ('ab', 'Абхазский'    ), ('az', 'Азербайджанский'), ('ay', 'Аймара'         ), ('sq', 'Албанский'        ),
@@ -132,9 +50,3 @@ values
 ('fi', 'Финский'      ),
 ('cs', 'Чешский'      ),
 ('jv', 'Яванский'     );
-
-create table core_country
-(
-    id   bigserial    primary key,
-    name varchar(255) not null unique
-);
