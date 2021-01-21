@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne
 import javax.persistence.Table
 
 @Entity
-@Table(name = "core_users")
+@Table(schema = "users", name = "users")
 class UserEntity : BaseEntity() {
 
     @Column(name = "username", nullable = false, unique = true)

@@ -8,7 +8,7 @@ import javax.persistence.Enumerated
 import javax.persistence.Table
 
 @Entity
-@Table(name = "core_profile")
+@Table(schema = "users", name = "profile")
 class ProfileEntity : BaseEntity() {
 
     @Column(name = "[type]", nullable = false)

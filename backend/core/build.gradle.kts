@@ -5,10 +5,9 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core"))
-
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.flywaydb:flyway-core")
 }
 
 tasks.getByName<Jar>("jar") { enabled = true }

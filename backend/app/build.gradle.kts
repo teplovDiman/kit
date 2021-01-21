@@ -6,7 +6,6 @@ plugins {
     id("org.springframework.boot")
     id("io.spring.dependency-management")
     id("com.avast.gradle.docker-compose")
-    id("org.flywaydb.flyway")
     kotlin("jvm")
     kotlin("plugin.spring")
     kotlin("plugin.jpa")
@@ -23,6 +22,9 @@ configurations {
 }
 
 dependencies {
+    implementation(project(":core"))
+    implementation(project(":user"))
+
     compileOnly("org.mapstruct:mapstruct:$mapstructVersion")
 
     implementation("com.cosium.spring.data:spring-data-jpa-entity-graph:$entityGraphVersion")
@@ -34,8 +36,6 @@ dependencies {
     implementation("org.flywaydb:flyway-core")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-
-    implementation(project(":user"))
 
     runtimeOnly("org.postgresql:postgresql")
 
@@ -71,11 +71,6 @@ tasks.bootJar {
 tasks.register<Copy>("copyDockerfile") {
     from("./docker")
     into("./build/libs")
-}
-
-tasks.register<Copy>("copyDBScripts") {
-    from("./../../data/migration")
-    into("./build/resources/main/data/migration")
 }
 
 task<Exec>("clearUp") {
@@ -124,4 +119,3 @@ project.tasks.named("clean").get().dependsOn("clearUp")
 project.tasks.named("composeUp").get().dependsOn("compileTestKotlin")
 
 project.tasks.named("assemble").get().finalizedBy("copyDockerfile")
-project.tasks.named("processResources").get().finalizedBy("copyDBScripts")

@@ -9,6 +9,7 @@ The idea is relate to present a service for create, save and analyse notes.
   - [Connections and Debugging](#connections-and-debugging)
     - [To debug using IntelliJ](#to-debug-using-intellij)
     - [Database connection](#database-connection)
+    - [Migrations](#migrations)
 
 # Quick start
 
@@ -17,13 +18,13 @@ The following steps expects to use them.
 The following steps was written for shell (_bash_, _cmd_, etc) use, but you can use any alternative way.
 
 For start the project:  
-1. Open the directory of project (kit);
+1. Go to the second directory of project in your preferred command-line shell `kit/backend/app`;
 2. Run the `gradle build`;
 3. Run the `docker-compose up`;
 4. For check application has been started, try to open browser by the following address http://localhost:8081/api/version or send `GET` request to this URL from a REST client;
 5. To stop the started containers from shell:
    - Press `CTRL + C` which will stop running docker containers;
-   - `gradle clean` will down dangling docker container, clear up images, volumes and then gradle build directory. It will __not__ remove openjdk and postgres images.
+   - `gradle clean` will down dangling docker container, clear up images, volumes and gradle build directory. It will __not__ remove openjdk and postgres images.
 
 # Documentation
 
@@ -61,10 +62,15 @@ Kit uses the following stack technology.
 
 Kit uses the following directory structure.
 <pre><code>.
-├── container                            # Spring Boot Dockerfile
-├── data                                 # Set of DB scripts
-|   └── db                               # PosgreSQL database SQL scripts
-|      └── migration                     # Kit Flyway SQL scripts
+├── backend                              # Directory contains all backend modules and Spring Boot Starter
+|   ├── app                              # The main module that depends from other and contain Spring Boot Starter
+|   |  ├── docker                        # Contain Dockerfile of application
+|   |  └── ...                           # Module content
+|   |  └── docker-compose.yml            # Docker compose file with description of docker images, network and volumes
+|   ├── core                             # The base module that providing some base tools for other modules
+|   |  └── ...                           # Module content
+|   └── user                             # The module contain all user related functional
+|      └── ...                           # Module content
 ├── gradle                               # Gradle directory
 |   └── wrapper                          # Gradle wrapper directory
 |        ├── gradle-wrapper.jar          # Required for download the correct Gradle version when run the build
@@ -88,7 +94,6 @@ Then docker compose will start 2 containers (postgres and application)
 
 1. When you run `gradle build` task, the second steps will performed:
    * `gradle build` task combine several default inner gradle tasks. Among other, it will perform several custom tasks. Such as:
-     * `copyDBScripts` will copy all sql-scripts from `./data` to `./build/resources/main` directory. These scripts are expected by Flyway for run it's against a database;
      * `copyDockerfile` will copy DockerFile from `./container/docker` to `./build/libs` directory. This file contains the instructions for a docker to build the Kit application image; 
      * Especial inner and non-default task is `composeUp`, which one added to gradle by plugin [com.avast.gradle.docker-compose](https://github.com/avast/gradle-docker-compose-plugin).
        This plugin is responsible for starts the application and waits till all containers become healthy and all exposed TCP ports are open (so till the application is ready);
@@ -115,6 +120,8 @@ To start it quickly, follow the [Quick start](#quick-start) instructions.
 
 ### To Debug using IntelliJ
 
+The next steps describe how to debug running Kit application under docker container via IntelliJ.  
+
 * Open "Run/Debug Configurations" In IntelliJ
   * In the left top menu click to the "+" button named "Add New Configuration" or press `ALT + INSERT`
   * Choose "Remote" type configuration
@@ -129,11 +136,26 @@ To start it quickly, follow the [Quick start](#quick-start) instructions.
 
 ### Database connection
 
-The postgres container is available from your local machine on port `5432` and can be accessed directly using the `psql -h localhost -p 5432` command.
+The postgres container is available from your local machine on port `54320` and can be accessed directly using the `psql -h localhost -p 54320` command.
 Or use can configure connection using you preferred IDE with next parameters:
 * Host: `localhost`
-* Port: `5432`
+* Port: `54320`
 * User: `postgres`
 * Password: `123`
 * Database: `kit`
-* Make sure the URL looks like `jdbc:postgresql://localhost:5432/kit`
+* Make sure the URL looks like `jdbc:postgresql://localhost:54320/kit`
+
+### Migrations
+
+[Flyway](https://flywaydb.org/) are handle database migrations by execute them from the `src/main/resources/db/migration/<module_name>` directory per each module.
+Migrations should follow the flyway naming convention which is like `V1__Versioned_migration.sql`. More details described in Flyway documentations.
+Versioned migrations will be applied out-of-order by default (although this is configurable).
+
+Also, Kit application realised mechanism for separate migrations by the modules.
+It was done for the following reasons: each module must be isolated from other and be knowledgeable only about common modules, that described explicitly in gradle file of module.
+For these reason, each module contains only those migrations, that relate to this very module.
+
+This mechanism interacts directly with the Spring context by asking it the implementations of the `FlywayConfig` interface.
+In turn, each module must implement the `FlywayConfig` interface: specify a schema name and `classpath` that contains its migrations.
+To start this mechanism, the Spring run the `KitFlywayMigrationStrategy` class.
+This class first launches Flyway for its own module and then launches any `FlywayConfig` implementations it finds.

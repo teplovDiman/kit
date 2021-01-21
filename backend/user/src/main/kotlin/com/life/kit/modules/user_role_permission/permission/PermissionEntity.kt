@@ -6,7 +6,7 @@ import javax.persistence.Entity
 import javax.persistence.Table
 
 @Entity
-@Table(name = "core_permission")
+@Table(schema = "users", name = "permission")
 class PermissionEntity : BaseEntity() {
 
     @Column(name = "name", nullable = false, unique = true)
