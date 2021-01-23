@@ -65,12 +65,15 @@ Kit uses the following directory structure.
 ├── backend                              # Directory contains all backend modules and Spring Boot Starter
 |   ├── app                              # The main module that depends from other and contain Spring Boot Starter
 |   |  ├── docker                        # Contain Dockerfile of application
-|   |  └── ...                           # Module content
+|   |  ├── src                           # Source files
+|   |  ├── build.gradle                  # Gradle build file
 |   |  └── docker-compose.yml            # Docker compose file with description of docker images, network and volumes
 |   ├── core                             # The base module that providing some base tools for other modules
-|   |  └── ...                           # Module content
+|   |  ├── src                           # Source files
+|   |  └── build.gradle                  # Gradle build file
 |   └── user                             # The module contain all user related functional
-|      └── ...                           # Module content
+|      ├── src                           # Source files
+|      └── build.gradle                  # Gradle build file
 ├── gradle                               # Gradle directory
 |   └── wrapper                          # Gradle wrapper directory
 |        ├── gradle-wrapper.jar          # Required for download the correct Gradle version when run the build
@@ -97,6 +100,7 @@ Then docker compose will start 2 containers (postgres and application)
      * `copyDockerfile` will copy DockerFile from `./container/docker` to `./build/libs` directory. This file contains the instructions for a docker to build the Kit application image; 
      * Especial inner and non-default task is `composeUp`, which one added to gradle by plugin [com.avast.gradle.docker-compose](https://github.com/avast/gradle-docker-compose-plugin).
        This plugin is responsible for starts the application and waits till all containers become healthy and all exposed TCP ports are open (so till the application is ready);
+       Logs will available in `kit/backend/app/build/logs` directory;
      * Tests will performed after containers start to be ready to work;
      * Then it down and remove the containers.
 2. On this step expected that docker contains 3 images: postgres, openjdk and Kit application.
