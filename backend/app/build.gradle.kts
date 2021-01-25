@@ -73,17 +73,43 @@ tasks.register<Copy>("copyDockerfile") {
     into("./build/libs")
 }
 
-task<Exec>("clearUp") {
-    var shellType = "sh"
-    when {
-        Os.isFamily(Os.FAMILY_WINDOWS) -> shellType = "cmd"
-        Os.isFamily(Os.FAMILY_UNIX) -> shellType = "sh"
-    }
+var shellType = "sh"
+when {
+    Os.isFamily(Os.FAMILY_WINDOWS) -> shellType = "cmd"
+    Os.isFamily(Os.FAMILY_UNIX) -> shellType = "sh"
+}
 
+tasks.withType<ProcessResources> {
+    // set the value in all "application**.yml" files to the placeholders with name "@gitHash@"
+    filesMatching("application**.yml") {
+        // todo: ugly way to get output of the commandLine
+        val gitHash: String = ByteArrayOutputStream().use { outputStream ->
+            project.exec {
+                commandLine(shellType, "-c", "git rev-parse HEAD")
+                standardOutput = outputStream
+            }
+            outputStream.toString()
+        }
+        // todo: ugly way to get output of the commandLine
+        val gitTagVersion: String = ByteArrayOutputStream().use { outputStream ->
+            project.exec {
+                commandLine(shellType, "-c", "git tag  | grep -E '^v[0-9]' | sort -V | tail -1")
+                standardOutput = outputStream
+            }
+            outputStream.toString()
+        }
+
+        val propertiesMap = mapOf("gitHash" to gitHash, "gitTagVersion" to gitTagVersion.trim())
+        filter<org.apache.tools.ant.filters.ReplaceTokens>(mapOf("tokens" to propertiesMap))
+    }
+}
+
+task<Exec>("clearUp") {
     // 1 - docker containers: down
     exec { commandLine(shellType, "-c", "yes \"y\" | docker container prune")}
 
     // 2 - docker image: remove application
+    // todo: ugly way to get output of the commandLine
     val dockerImageId: String = ByteArrayOutputStream().use { outputStream ->
         project.exec {
             commandLine(shellType, "-c", "docker images -q ${rootProject.name} 2> /dev/null")

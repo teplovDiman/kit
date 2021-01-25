@@ -24,3 +24,7 @@ spring:
       ddl-auto: validate
     show-sql: false
     open-in-view: false
+
+app:
+  version: @gitTagVersion@
+  git-hash: @gitHash@
