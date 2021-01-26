@@ -12,9 +12,6 @@ plugins {
     kotlin("kapt")
 }
 
-val mapstructVersion by extra("1.4.1.Final")
-val entityGraphVersion by extra("2.4.1")
-
 configurations {
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())
@@ -25,28 +22,29 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":user"))
 
-    compileOnly("org.mapstruct:mapstruct:$mapstructVersion")
+    compileOnly("org.mapstruct:mapstruct:" + findProperty("mapstruct_version"))
 
-    implementation("com.cosium.spring.data:spring-data-jpa-entity-graph:$entityGraphVersion")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.hibernate.validator:hibernate-validator")
+    implementation("io.github.microutils:kotlin-logging-jvm:" + findProperty("kotlin_logging_version"))
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.flywaydb:flyway-core")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("com.cosium.spring.data:spring-data-jpa-entity-graph:" + findProperty("entity_graph_version"))
 
     runtimeOnly("org.postgresql:postgresql")
 
-    annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVersion")
+    annotationProcessor("org.mapstruct:mapstruct-processor:" + findProperty("mapstruct_version"))
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
-    testImplementation("com.cosium.spring.data:spring-data-jpa-entity-graph:$entityGraphVersion")
-    testAnnotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVersion")
+    testImplementation("com.cosium.spring.data:spring-data-jpa-entity-graph:" + findProperty("entity_graph_version"))
+    testAnnotationProcessor("org.mapstruct:mapstruct-processor:" + findProperty("mapstruct_version"))
 
-    kapt("org.mapstruct:mapstruct-jdk8:$mapstructVersion")
+    kapt("org.mapstruct:mapstruct-jdk8:" + findProperty("mapstruct_version"))
 }
 
 //-------------------- Configuration tasks --------------
