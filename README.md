@@ -13,9 +13,9 @@ The idea is relate to present a service for create, save and analyse notes.
 
 # Quick start
 
-Make sure you have installed `gradle`, `docker` and `docker compose` tools and java 11 on your machine.
+Make sure you have installed `gradle`, `docker` and `docker compose` tools and `java 16` on your machine.
 The following steps expects to use them.
-The following steps was written for shell (_bash_, _cmd_, etc) use, but you can use any alternative way.
+It was written for shell (_bash_, _cmd_, etc) use, but you can use any alternative way.
 
 For start the project:  
 1. Go to the `kit` directory of project in your preferred command-line shell;
@@ -37,7 +37,7 @@ The same result appears if send `GET` request to this URL from a REST client;
 Kit uses the following stack technology.
 <pre><code>
 ┌── Language
-|   ├── Kotlin 1.4.21
+|   ├── Kotlin 1.5.21
 |   └── SQL (PostgreSQL Dialect)
 ├── Database
 |   ├── Postgres 13
@@ -56,7 +56,7 @@ Kit uses the following stack technology.
     ├── Mapstruct
     ├── Spring Security
     ├── Swagger
-    ├── Gradle 6.4.1
+    ├── Gradle 7.1.1
     ├── Kubernetes (not implemented yet)
     ├── Docker
     └── Docker compose

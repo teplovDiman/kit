@@ -1,11 +1,14 @@
 package com.life.kit.config.flyway
 
+import mu.KotlinLogging
 import org.flywaydb.core.Flyway
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Configuration
 import java.util.stream.Collectors
+
+private val log = KotlinLogging.logger {}
 
 @Configuration
 open class KitFlywayMigrationStrategy(private val context: ApplicationContext,
@@ -19,8 +22,6 @@ open class KitFlywayMigrationStrategy(private val context: ApplicationContext,
         // is empty? By this reason it require to get @Value property in constructor.
         // Is there is way to avoid this crutch?
 
-        // todo: add logs
-
         startMigration("core", "classpath:db/migration/core")
 
         configs.forEach {
@@ -29,6 +30,7 @@ open class KitFlywayMigrationStrategy(private val context: ApplicationContext,
     }
 
     private fun startMigration(schema: String, location: String) {
+        log.info { "Flyway: Start migration for schema: $schema ..." }
         Flyway.configure()
                 .dataSource(datasourceUrl, datasourceUsername, datasourcePassword)
                 .schemas(schema)
