@@ -8,5 +8,5 @@ class KitApplication
 
 fun main(args: Array<String>) {
 
-    runApplication<KitApplication>(*args)
+  runApplication<KitApplication>(*args)
 }
