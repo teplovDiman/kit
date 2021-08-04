@@ -1,7 +1,7 @@
 package com.life.kit.modules.user_role_permission.role
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.life.kit.modules.BaseEntity
+import com.life.kit.common.BaseEntity
 import com.life.kit.modules.user_role_permission.permission.PermissionEntity
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -13,16 +13,24 @@ import javax.persistence.Table
 
 @Entity
 @Table(schema = "users", name = "role")
-class RoleEntity : BaseEntity() {
+class RoleEntity(
 
-    @Column(name = "name", nullable = false, unique = true)
-    var name: String? = null
+  @Column(name = "name", nullable = false, unique = true)
+  var name: String? = null,
 
-    @ManyToMany(fetch = EAGER)
-    @JoinTable(schema = "users",
-               name = "permission_to_role",
-               joinColumns = [JoinColumn(name = "role_id")],
-               inverseJoinColumns = [JoinColumn(name = "permission_id")])
-    @JsonIgnore
-    var permissions: Set<PermissionEntity>? = null
+  @ManyToMany(fetch = EAGER)
+  @JoinTable(
+    schema = "users",
+    name = "permission_to_role",
+    joinColumns = [JoinColumn(name = "role_id")],
+    inverseJoinColumns = [JoinColumn(name = "permission_id")])
+  @JsonIgnore
+  var permissions: Set<PermissionEntity>? = null
+
+) : BaseEntity() {
+
+  override fun toString(): String {
+    return "${this.javaClass.simpleName}(${super.toString()}, name=$name, permissions=$permissions)"
+  }
+
 }

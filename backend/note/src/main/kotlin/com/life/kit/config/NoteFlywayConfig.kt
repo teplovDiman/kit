@@ -5,11 +5,11 @@ import com.life.kit.common.FlywayOrder
 import org.springframework.stereotype.Component
 
 @Component
-open class UserFlywayConfig : FlywayConfig {
+open class NoteFlywayConfig : FlywayConfig {
   override val schema: String
-    get() = "users"
+    get() = "note"
   override val location: String
-    get() = "db/migration/user"
+    get() = "db/migration/note"
   override val order: FlywayOrder
-    get() = FlywayOrder.USER
+    get() = FlywayOrder.NOTE
 }

@@ -19,8 +19,7 @@ configurations {
 }
 
 dependencies {
-    implementation(project(":core"))
-    implementation(project(":user"))
+    implementation(project(":note"))
 
     compileOnly("org.mapstruct:mapstruct:" + findProperty("mapstruct_version"))
 
@@ -48,6 +47,12 @@ dependencies {
 }
 
 //-------------------- Configuration tasks --------------
+
+allOpen {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.MappedSuperclass")
+    annotation("javax.persistence.Embeddable")
+}
 
 tasks.withType<Test> {
     useJUnitPlatform()

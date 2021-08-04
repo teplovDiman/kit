@@ -1,8 +1,8 @@
 set search_path to users;
 
 -------------------- profile -------------------------
-insert into profile (type, first_name, last_name, is_man, birth_date)
-values (1, 'Che', 'Guevara', true, now());
+insert into profile (type, first_name, middle_name, last_name, is_man, birth_date)
+values (1, 'Ernesto', 'Rafael de la Serna', 'Guevara', true, now());
 
 -------------------- role ----------------------------
 insert into role(name)
