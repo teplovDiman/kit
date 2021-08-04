@@ -18,6 +18,8 @@ class UtilController(
 
   @GetMapping("/api/info")
   fun getInfo(): InfoDto {
+    // TODO: add Postgres, Gradle versions
+
     val stackTechnology = InfoStackTechnologyDto(
       System.getProperty("java.version"),
       SpringVersion.getVersion(),

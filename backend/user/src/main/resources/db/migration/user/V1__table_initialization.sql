@@ -3,16 +3,17 @@ set search_path to users;
 -------------------- profile -------------------------
 create table profile
 (
-    id                 bigserial        primary key,
-    type               integer          not null,
-    first_name         varchar(255)     null,
-    middle_name        varchar(255)     null,
-    last_name          varchar(255)     null,
-    is_man             boolean          null,
-    birth_date         date             null
+    id          bigserial    primary key,
+    type        integer      not null,
+    first_name  varchar(255)     null,
+    middle_name varchar(255)     null,
+    last_name   varchar(255)     null,
+    is_man      boolean          null,
+    birth_date  date             null
 );
 
 create index if not exists profile_type_index on profile(type);
+-- todo: rename all indexes like [schema_name]+[table_name]+[column(s)_name]+'index'
 
 -------------------- permission ----------------------
 create table permission
@@ -44,12 +45,12 @@ create index if not exists permission_to_role_role_id_index on permission_to_rol
 -------------------- users ----------------------------
 create table users
 (
-    id            bigserial               primary key,
-    username      varchar(50)             not null unique,
-    email         varchar(50)             not null unique,
-    password_hash varchar(60)             not null,
-    profile_id    bigint                  not null references profile,
-    role_id       bigint                  not null references role
+    id            bigserial   primary key,
+    username      varchar(50) not null unique,
+    email         varchar(50) not null unique,
+    password_hash varchar(60) not null,
+    profile_id    bigint      not null references profile,
+    role_id       bigint      not null references role
 );
 
 create index if not exists user_username_email_index on users(username, email);

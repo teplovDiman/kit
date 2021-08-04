@@ -7,7 +7,7 @@ plugins {
     id("org.flywaydb.flyway") version "7.3.2" apply false
     kotlin("jvm") version "1.5.21" apply false
     kotlin("plugin.spring") version "1.5.21" apply false
-    kotlin("plugin.jpa") version "1.3.72" apply false
+    kotlin("plugin.jpa") version "1.5.21" apply false
     kotlin("kapt") version "1.5.21" apply false
 }
 
