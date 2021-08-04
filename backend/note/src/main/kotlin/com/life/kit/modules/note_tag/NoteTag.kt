@@ -1,6 +1,7 @@
 package com.life.kit.modules.note_tag
 
 import com.life.kit.common.BaseEntity
+import com.life.kit.config.NoteDatabaseConfig
 import com.life.kit.modules.user_role_permission.user.UserEntity
 import java.time.LocalDateTime
 import javax.persistence.Column
@@ -11,7 +12,7 @@ import javax.persistence.ManyToOne
 import javax.persistence.Table
 
 @Entity
-@Table(schema = "note", name = "note_tag")
+@Table(schema = NoteDatabaseConfig.SCHEMA_NAME, name = "note_tag")
 class NoteTag(
 
   @Column(name = "name")

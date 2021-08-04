@@ -40,11 +40,11 @@ open class FlywayMigrationStrategy(
       .migrate()
   }
 
-  private val configs: List<FlywayConfig>
-    get() = context.getBeansOfType(FlywayConfig::class.java)
+  private val configs: List<DatabaseConfig>
+    get() = context.getBeansOfType(DatabaseConfig::class.java)
       .entries
       .stream()
-      .map { x: Map.Entry<String?, FlywayConfig> -> x.value }
+      .map { x: Map.Entry<String?, DatabaseConfig> -> x.value }
       .collect(Collectors.toList())
       .sortedBy { it.order.ordinal }
 }

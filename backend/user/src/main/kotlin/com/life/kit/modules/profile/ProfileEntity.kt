@@ -1,6 +1,7 @@
 package com.life.kit.modules.profile
 
 import com.life.kit.common.BaseEntity
+import com.life.kit.config.UserDatabaseConfig
 import java.time.LocalDate
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -8,7 +9,7 @@ import javax.persistence.Enumerated
 import javax.persistence.Table
 
 @Entity
-@Table(schema = "users", name = "profile")
+@Table(schema = UserDatabaseConfig.SCHEMA_NAME, name = "profile")
 class ProfileEntity(
 
   @Enumerated

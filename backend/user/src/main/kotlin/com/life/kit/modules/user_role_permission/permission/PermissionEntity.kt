@@ -1,12 +1,13 @@
 package com.life.kit.modules.user_role_permission.permission
 
 import com.life.kit.common.BaseEntity
+import com.life.kit.config.UserDatabaseConfig
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Table
 
 @Entity
-@Table(schema = "users", name = "permission")
+@Table(schema = UserDatabaseConfig.SCHEMA_NAME, name = "permission")
 class PermissionEntity(
 
   @Column(name = "name", nullable = false, unique = true)
