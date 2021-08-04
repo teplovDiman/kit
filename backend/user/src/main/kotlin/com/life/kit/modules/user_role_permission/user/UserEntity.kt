@@ -1,6 +1,7 @@
 package com.life.kit.modules.user_role_permission.user
 
 import com.life.kit.common.BaseEntity
+import com.life.kit.config.UserDatabaseConfig
 import com.life.kit.modules.profile.ProfileEntity
 import com.life.kit.modules.user_role_permission.role.RoleEntity
 import javax.persistence.Column
@@ -11,7 +12,7 @@ import javax.persistence.ManyToOne
 import javax.persistence.Table
 
 @Entity
-@Table(schema = "users", name = "users")
+@Table(schema = UserDatabaseConfig.SCHEMA_NAME, name = "users")
 class UserEntity(
 
   @Column(name = "username", nullable = false, unique = true)
