@@ -52,6 +52,11 @@ allOpen {
     annotation("javax.persistence.Entity")
     annotation("javax.persistence.MappedSuperclass")
     annotation("javax.persistence.Embeddable")
+    annotation("org.springframework.stereotype.Component")
+    annotation("org.springframework.scheduling.annotation.Async")
+    annotation("org.springframework.transaction.annotation.Transactional")
+    annotation("org.springframework.cache.annotation.Cacheable")
+    annotation("org.springframework.boot.test.context.SpringBootTest")
 }
 
 tasks.withType<Test> {

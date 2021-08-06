@@ -1,7 +1,7 @@
 package com.life.kit.config
 
-import com.life.kit.config.flyway.DatabaseConfig
 import com.life.kit.common.FlywayOrder
+import com.life.kit.config.flyway.DatabaseConfig
 import org.springframework.stereotype.Component
 
 @Component
