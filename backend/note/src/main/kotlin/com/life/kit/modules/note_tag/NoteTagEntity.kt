@@ -13,7 +13,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(schema = NoteDatabaseConfig.SCHEMA_NAME, name = "note_tag")
-class NoteTag(
+class NoteTagEntity(
 
   @Column(name = "name")
   var name: String? = null,
@@ -25,7 +25,7 @@ class NoteTag(
   @Column(name = "created_at")
   var createdAt: LocalDateTime? = null
 
-): BaseEntity() {
+) : BaseEntity() {
 
   override fun toString(): String {
     return "${this.javaClass.simpleName}(${super.toString()}, name=$name, createdAt=$createdAt)"

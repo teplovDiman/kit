@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Configuration
-import java.util.stream.Collectors
 
 private val log = KotlinLogging.logger {}
 
@@ -43,8 +42,6 @@ open class FlywayMigrationStrategy(
   private val configs: List<DatabaseConfig>
     get() = context.getBeansOfType(DatabaseConfig::class.java)
       .entries
-      .stream()
       .map { x: Map.Entry<String?, DatabaseConfig> -> x.value }
-      .collect(Collectors.toList())
       .sortedBy { it.order.ordinal }
 }
