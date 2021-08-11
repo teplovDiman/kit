@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration
 private val log = KotlinLogging.logger {}
 
 @Configuration
-open class FlywayMigrationStrategy(
+open class FlywayMigrationConfiguration(
   private val context: ApplicationContext,
   @Value("\${spring.datasource.url}") private val datasourceUrl: String,
   @Value("\${spring.datasource.username}") private val datasourceUsername: String,

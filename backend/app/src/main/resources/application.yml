@@ -25,6 +25,10 @@ spring:
     show-sql: false
     open-in-view: false
 
+springdoc:
+  swagger-ui:
+    enabled: true
+
 app:
   version: @gitTagVersion@
   git-hash: @gitHash@

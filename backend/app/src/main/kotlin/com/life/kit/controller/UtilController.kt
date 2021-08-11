@@ -2,7 +2,7 @@
 
 package com.life.kit.controller
 
-import com.life.kit.config.KitConfigurationProperties
+import com.life.kit.config.KitPropertiesConfiguration
 import com.life.kit.dto.InfoDto
 import com.life.kit.dto.InfoStackTechnologyDto
 import org.springframework.boot.SpringBootVersion
@@ -13,7 +13,9 @@ import java.time.LocalDateTime
 
 @RestController
 class UtilController(
-  val properties: KitConfigurationProperties
+
+  private val kitProperties: KitPropertiesConfiguration
+
 ) {
 
   @GetMapping("/api/info")
@@ -22,13 +24,13 @@ class UtilController(
 
     val stackTechnology = InfoStackTechnologyDto(
       System.getProperty("java.version"),
-      SpringVersion.getVersion(),
+      SpringVersion.getVersion()!!,
       SpringBootVersion.getVersion())
 
     return InfoDto(
       "Kit Application",
-      properties.version!!,
-      properties.gitHash!!,
+      kitProperties.version,
+      kitProperties.gitHash,
       LocalDateTime.now().toString(),
       stackTechnology
     )

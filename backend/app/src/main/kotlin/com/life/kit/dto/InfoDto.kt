@@ -5,5 +5,5 @@ class InfoDto(
   val version: String,
   val gitHash: String,
   val localDateTime: String,
-  val infoStackTechnology: InfoStackTechnologyDto
+  val stackTechnology: InfoStackTechnologyDto
 )

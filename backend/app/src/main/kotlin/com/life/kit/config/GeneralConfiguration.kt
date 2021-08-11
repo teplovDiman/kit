@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @Configuration
 @EnableJpaRepositories(basePackages = ["com.life"], repositoryFactoryBeanClass = EntityGraphJpaRepositoryFactoryBean::class)
-@EnableConfigurationProperties(KitConfigurationProperties::class)
-class GeneralConfig
+@EnableConfigurationProperties(KitPropertiesConfiguration::class)
+class GeneralConfiguration
