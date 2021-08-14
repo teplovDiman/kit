@@ -11,10 +11,18 @@ private val log = KotlinLogging.logger {}
 
 @Configuration
 open class FlywayMigrationConfiguration(
+
   private val context: ApplicationContext,
-  @Value("\${spring.datasource.url}") private val datasourceUrl: String,
-  @Value("\${spring.datasource.username}") private val datasourceUsername: String,
-  @Value("\${spring.datasource.password}") private val datasourcePassword: String
+
+  @Value("\${spring.datasource.url}")
+  private val datasourceUrl: String,
+
+  @Value("\${spring.datasource.username}")
+  private val datasourceUsername: String,
+
+  @Value("\${spring.datasource.password}")
+  private val datasourcePassword: String
+
 ) : FlywayMigrationStrategy {
 
   override fun migrate(flyway: Flyway) {

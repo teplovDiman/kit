@@ -1,5 +1,6 @@
 package com.life.kit.modules.note
 
+import com.life.kit.common.KitHelper
 import com.life.kit.common.getOneById
 import com.life.kit.modules.user_role_permission.user.UserHelper
 import org.springframework.data.domain.Page
@@ -7,40 +8,42 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.time.LocalDateTime
+import org.springframework.validation.annotation.Validated
 
-@Service
+@Validated
 @Transactional
+@Service
 open class NoteService(
 
   private val noteMapper: NoteMapper,
   private val noteRepository: NoteRepository,
-  private val userHelper: UserHelper
+  private val userHelper: UserHelper,
+  private val kitHelper: KitHelper
 
 ) {
 
-  open fun save(noteDto: NoteDto): NoteDto {
+  open fun save(noteDto: NoteDto): GetNoteDto {
     val entityForSave = noteMapper.dtoToEntity(noteDto)
     entityForSave.createdBy = userHelper.getCurrentUser()
-    entityForSave.createdAt = LocalDateTime.now()
+    entityForSave.createdAt = kitHelper.getLocalDateTimeNow()
     return noteMapper.entityToDto(noteRepository.save(entityForSave))
   }
 
-  open fun findAll(pageable: Pageable): Page<NoteDto> {
+  open fun findAll(pageable: Pageable): Page<GetNoteDto> {
     return noteRepository.findAllByCreatedById(userHelper.getCurrentUserId(), pageable).map(noteMapper::entityToDto)
   }
 
-  open fun findById(noteId: Long): NoteDto {
+  open fun findById(@NoteNotFound noteId: Long): GetNoteDto {
     return noteMapper.entityToDto(noteRepository.findByIdOrNull(noteId))
   }
 
-  open fun update(noteId: Long, noteDto: NoteDto): NoteDto {
+  open fun update(@NoteNotFound noteId: Long, noteDto: NoteDto): GetNoteDto {
     val noteEntity = noteRepository.getOneById(noteId)
     noteMapper.updateEntityFromDto(noteEntity, noteDto)
     return noteMapper.entityToDto(noteEntity)
   }
 
-  open fun delete(noteId: Long) {
+  open fun delete(@NoteNotFound noteId: Long) {
     noteRepository.deleteById(noteId)
   }
 }
