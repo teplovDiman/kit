@@ -4,7 +4,7 @@ set search_path to note;
 create table note
 (
     id         bigserial    primary key,
-    title      varchar(500)               not null,
+    title      varchar(255)               not null,
     value      text                       not null,
     created_by bigint                     not null references users.users,
     created_at timestamp    default now() not null
@@ -15,7 +15,7 @@ create table note
 create table note_tag
 (
     id         bigserial    primary key,
-    name       varchar(500)               not null unique,
+    name       varchar(31)                not null unique,
     created_by bigint                         null references users.users,
     created_at timestamp    default now() not null
 );

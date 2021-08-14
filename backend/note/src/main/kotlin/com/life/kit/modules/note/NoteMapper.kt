@@ -5,4 +5,4 @@ import org.mapstruct.Mapper
 import org.mapstruct.ReportingPolicy
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-interface NoteMapper : BaseMapper<NoteEntity, NoteDto>
+interface NoteMapper : BaseMapper<NoteEntity, NoteDto, GetNoteDto>

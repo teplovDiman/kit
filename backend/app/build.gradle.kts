@@ -19,6 +19,7 @@ configurations {
 }
 
 dependencies {
+    implementation(project(":core"))
     implementation(project(":note"))
 
     compileOnly("org.mapstruct:mapstruct:" + findProperty("mapstruct_version"))

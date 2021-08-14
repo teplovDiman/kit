@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/notes")
@@ -21,28 +22,29 @@ class NoteController(
 
 ) {
 
-  @ResponseStatus(value = HttpStatus.CREATED)
+  @ResponseStatus(HttpStatus.CREATED)
   @PostMapping
-  fun create(@RequestBody noteDto: NoteDto): NoteDto {
+  fun create(@Valid @RequestBody noteDto: NoteDto): GetNoteDto {
     return noteService.save(noteDto)
   }
 
   @GetMapping
-  fun findAll(pageable: Pageable): Page<NoteDto> {
+  fun findAll(pageable: Pageable): Page<GetNoteDto> {
     return noteService.findAll(pageable)
   }
 
   @GetMapping("/{noteId}")
-  fun findById(@PathVariable noteId: Long): NoteDto {
+  fun findById(@PathVariable noteId: Long): GetNoteDto {
     return noteService.findById(noteId)
   }
 
   @PutMapping("/{noteId}")
-  fun update(@PathVariable noteId: Long, @RequestBody noteDto: NoteDto): NoteDto {
+  fun update(@PathVariable noteId: Long,
+             @Valid @RequestBody noteDto: NoteDto): GetNoteDto {
     return noteService.update(noteId, noteDto)
   }
 
-  @ResponseStatus(value = HttpStatus.NO_CONTENT)
+  @ResponseStatus(HttpStatus.NO_CONTENT)
   @DeleteMapping("/{noteId}")
   fun delete(@PathVariable noteId: Long) {
     return noteService.delete(noteId)

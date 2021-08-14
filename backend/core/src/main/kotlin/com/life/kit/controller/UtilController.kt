@@ -1,7 +1,6 @@
-@file:Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-
 package com.life.kit.controller
 
+import com.life.kit.common.KitHelper
 import com.life.kit.config.KitPropertiesConfiguration
 import com.life.kit.dto.InfoDto
 import com.life.kit.dto.InfoStackTechnologyDto
@@ -9,12 +8,12 @@ import org.springframework.boot.SpringBootVersion
 import org.springframework.core.SpringVersion
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
-import java.time.LocalDateTime
 
 @RestController
 class UtilController(
 
-  private val kitProperties: KitPropertiesConfiguration
+  private val kitProperties: KitPropertiesConfiguration,
+  private val kitHelper: KitHelper
 
 ) {
 
@@ -31,7 +30,7 @@ class UtilController(
       "Kit Application",
       kitProperties.version,
       kitProperties.gitHash,
-      LocalDateTime.now().toString(),
+      kitHelper.getLocalDateTimeNow().toString(),
       stackTechnology
     )
   }
