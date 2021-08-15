@@ -5,6 +5,9 @@ plugins {
 }
 
 dependencies {
+    compileOnly("org.mapstruct:mapstruct:" + findProperty("mapstruct_version"))
+
+    implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("io.github.microutils:kotlin-logging-jvm:" + findProperty("kotlin_logging_version"))
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

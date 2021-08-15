@@ -20,7 +20,7 @@ configurations {
 
 dependencies {
     implementation(project(":core"))
-    implementation(project(":user"))
+    implementation(project(":note"))
 
     compileOnly("org.mapstruct:mapstruct:" + findProperty("mapstruct_version"))
 
@@ -29,6 +29,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springdoc:springdoc-openapi-ui:" + findProperty("openapi_version"))
+    implementation("org.springdoc:springdoc-openapi-data-rest:" + findProperty("openapi_version"))
+    implementation("org.springdoc:springdoc-openapi-kotlin:" + findProperty("openapi_version"))
     implementation("org.hibernate.validator:hibernate-validator")
     implementation("io.github.microutils:kotlin-logging-jvm:" + findProperty("kotlin_logging_version"))
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -48,6 +51,17 @@ dependencies {
 }
 
 //-------------------- Configuration tasks --------------
+
+allOpen {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.MappedSuperclass")
+    annotation("javax.persistence.Embeddable")
+    annotation("org.springframework.stereotype.Component")
+    annotation("org.springframework.scheduling.annotation.Async")
+    annotation("org.springframework.transaction.annotation.Transactional")
+    annotation("org.springframework.cache.annotation.Cacheable")
+    annotation("org.springframework.boot.test.context.SpringBootTest")
+}
 
 tasks.withType<Test> {
     useJUnitPlatform()
