@@ -1,6 +1,5 @@
 package com.life.kit.modules.note
 
-import com.life.kit.common.KitHelper
 import com.life.kit.common.getOneById
 import com.life.kit.modules.user_role_permission.user.UserHelper
 import org.springframework.data.domain.Page
@@ -17,15 +16,12 @@ open class NoteService(
 
   private val noteMapper: NoteMapper,
   private val noteRepository: NoteRepository,
-  private val userHelper: UserHelper,
-  private val kitHelper: KitHelper
+  private val userHelper: UserHelper
 
 ) {
 
   open fun save(noteDto: NoteDto): GetNoteDto {
     val entityForSave = noteMapper.dtoToEntity(noteDto)
-    entityForSave.createdBy = userHelper.getCurrentUser()
-    entityForSave.createdAt = kitHelper.getLocalDateTimeNow()
     return noteMapper.entityToDto(noteRepository.save(entityForSave))
   }
 

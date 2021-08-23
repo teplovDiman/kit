@@ -7,6 +7,8 @@ plugins {
 dependencies {
     implementation(project(":core"))
 
+    compileOnly("org.mapstruct:mapstruct:" + findProperty("mapstruct_version"))
+
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 }
