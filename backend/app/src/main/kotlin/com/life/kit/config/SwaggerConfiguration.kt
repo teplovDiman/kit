@@ -25,8 +25,8 @@ class SwaggerConfiguration(
           .version(kitProperties.version)
           .license(
             License()
-              .name("No License yet :(")
-              .url("http://fakeurlblablabla.com")))
+              .name("GPL-3.0 License")
+              .url("https://www.gnu.org/licenses/gpl-3.0.en.html")))
       .externalDocs(
         ExternalDocumentation()
           .description("Documentation")
