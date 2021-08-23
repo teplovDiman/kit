@@ -2,6 +2,7 @@ package com.life.kit.modules.note
 
 import com.life.kit.common.BaseEntity
 import com.life.kit.config.NoteDatabaseConfig
+import com.life.kit.modules.user_role_permission.common.AuditableEntity
 import com.life.kit.modules.user_role_permission.user.UserEntity
 import java.time.LocalDateTime
 import javax.persistence.Column
@@ -23,12 +24,12 @@ class NoteEntity(
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "created_by")
-  var createdBy: UserEntity? = null,
+  override var createdBy: UserEntity? = null,
 
   @Column(name = "created_at")
-  var createdAt: LocalDateTime? = null
+  override var createdAt: LocalDateTime? = null
 
-) : BaseEntity() {
+) : BaseEntity(), AuditableEntity {
 
   override fun toString(): String {
     return "${this.javaClass.simpleName}(${super.toString()}, title=$title, value=$value, createdAt=$createdAt)"

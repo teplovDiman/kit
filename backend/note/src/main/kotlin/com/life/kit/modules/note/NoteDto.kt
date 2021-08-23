@@ -1,6 +1,6 @@
 package com.life.kit.modules.note
 
-import com.life.kit.common.BaseDto
+import com.life.kit.common.BaseEmptyDto
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
 
@@ -13,4 +13,4 @@ open class NoteDto (
   @get:NotBlank
   var value: String? = null,
 
-): BaseDto()
+): BaseEmptyDto()
