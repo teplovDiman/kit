@@ -6,6 +6,7 @@ import javax.validation.ConstraintValidatorContext
 import javax.validation.Payload
 import kotlin.reflect.KClass
 
+@Suppress("unused")
 @Target(AnnotationTarget.VALUE_PARAMETER)
 @MustBeDocumented
 @Constraint(validatedBy = [NoteNotFoundValidator::class])

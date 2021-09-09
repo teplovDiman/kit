@@ -25,6 +25,9 @@ spring:
     show-sql: false
     open-in-view: false
 
+# if swagger-ui.enabled=true, it will be available at http://localhost:8081/swagger-ui/index.html?url=/v3/api-docs
+# if not, then at https://petstore.swagger.io/?url=http://localhost:8081/v3/api-docs/
+# schema is available at http://localhost:8081/v3/api-docs/
 springdoc:
   swagger-ui:
     enabled: true

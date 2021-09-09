@@ -2,6 +2,7 @@ package com.life.kit.modules.user_role_permission.common
 
 import com.life.kit.common.BaseEmptyDto
 import com.life.kit.common.BaseEntity
+import com.life.kit.common.BaseSearchParam
 import com.life.kit.common.IdDto
 import com.life.kit.common.KitHelper
 import com.life.kit.modules.user_role_permission.user.UserHelper
@@ -13,7 +14,11 @@ import org.mapstruct.Named
 import org.mapstruct.NullValuePropertyMappingStrategy
 import org.mapstruct.ReportingPolicy
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
 
+@Suppress("SpringJavaAutowiredMembersInspection")
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 abstract class BaseMapper<Entity : BaseEntity, Dto : BaseEmptyDto, DtoWithId : IdDto> {
 
@@ -39,5 +44,9 @@ abstract class BaseMapper<Entity : BaseEntity, Dto : BaseEmptyDto, DtoWithId : I
       entity.createdAt = kitHelper.getLocalDateTimeNow()
     }
     return entity
+  }
+
+  fun searchToPageable(searchParam: BaseSearchParam): Pageable {
+    return PageRequest.of(searchParam.page, searchParam.size, Sort.by(searchParam.sortDir, AuditableEntity::createdAt.name))
   }
 }

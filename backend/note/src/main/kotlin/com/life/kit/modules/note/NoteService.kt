@@ -1,5 +1,6 @@
 package com.life.kit.modules.note
 
+import com.life.kit.common.BaseSearchParam
 import com.life.kit.common.getOneById
 import com.life.kit.modules.user_role_permission.user.UserHelper
 import org.springframework.data.domain.Page
@@ -25,7 +26,8 @@ open class NoteService(
     return noteMapper.entityToDto(noteRepository.save(entityForSave))
   }
 
-  open fun findAll(pageable: Pageable): Page<GetNoteDto> {
+  open fun findAll(baseSearchParam: BaseSearchParam): Page<GetNoteDto> {
+    val pageable = noteMapper.searchToPageable(baseSearchParam)
     return noteRepository.findAllByCreatedById(userHelper.getCurrentUserId(), pageable).map(noteMapper::entityToDto)
   }
 
