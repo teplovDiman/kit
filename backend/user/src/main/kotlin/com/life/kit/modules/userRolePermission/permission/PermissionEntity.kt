@@ -1,4 +1,4 @@
-package com.life.kit.modules.user_role_permission.permission
+package com.life.kit.modules.userRolePermission.permission
 
 import com.life.kit.common.BaseEntity
 import com.life.kit.config.UserDatabaseConfig

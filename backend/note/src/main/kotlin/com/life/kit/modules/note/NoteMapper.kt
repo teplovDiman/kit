@@ -1,6 +1,6 @@
 package com.life.kit.modules.note
 
-import com.life.kit.modules.user_role_permission.common.BaseMapper
+import com.life.kit.modules.userRolePermission.common.BaseMapper
 import org.mapstruct.Mapper
 import org.mapstruct.ReportingPolicy
 

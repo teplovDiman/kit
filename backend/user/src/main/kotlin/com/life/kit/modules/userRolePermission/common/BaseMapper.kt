@@ -1,10 +1,14 @@
-package com.life.kit.modules.user_role_permission.common
+// region Suppresses
+@file:Suppress("SpringJavaAutowiredMembersInspection")
+// endregion
+
+package com.life.kit.modules.userRolePermission.common
 
 import com.life.kit.common.BaseEmptyDto
 import com.life.kit.common.BaseEntity
 import com.life.kit.common.IdDto
 import com.life.kit.common.KitHelper
-import com.life.kit.modules.user_role_permission.user.UserHelper
+import com.life.kit.modules.userRolePermission.user.UserHelper
 import org.mapstruct.AfterMapping
 import org.mapstruct.BeanMapping
 import org.mapstruct.Mapper

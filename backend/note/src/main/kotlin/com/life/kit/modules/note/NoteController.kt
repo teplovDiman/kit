@@ -39,8 +39,7 @@ class NoteController(
   }
 
   @PutMapping("/{noteId}")
-  fun update(@PathVariable noteId: Long,
-             @Valid @RequestBody noteDto: NoteDto): GetNoteDto {
+  fun update(@PathVariable noteId: Long, @Valid @RequestBody noteDto: NoteDto): GetNoteDto {
     return noteService.update(noteId, noteDto)
   }
 

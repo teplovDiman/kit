@@ -1,3 +1,7 @@
+// region Suppresses
+@file:Suppress("unused")
+// endregion
+
 package com.life.kit.dto
 
 class InfoStackTechnologyDto(
