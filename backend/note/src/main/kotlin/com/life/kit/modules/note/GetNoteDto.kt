@@ -2,8 +2,8 @@ package com.life.kit.modules.note
 
 import com.life.kit.common.IdDto
 
-class GetNoteDto (
+class GetNoteDto(
 
   override val id: Long?
 
-): NoteDto(), IdDto
+) : NoteDto(), IdDto

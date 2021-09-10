@@ -1,5 +1,5 @@
 Kit is a project for describe, combine and use back-end technologies.
-The idea is relate to present a service for create, save and analyse notes.
+The idea is related to present a service for create, save and analyse notes.
 
 - [Quick start](#quick-start)
 - [Documentation](#documentation)
@@ -15,7 +15,7 @@ The idea is relate to present a service for create, save and analyse notes.
 
 Make sure you have installed `gradle`, `docker` and `docker compose` tools and `java 16` on your machine.
 The following steps expects to use them.
-It was written for shell (_bash_, _cmd_, etc) use, but you can use any alternative way.
+It was written for shell (_bash_, _cmd_, etc.) use, but you can use any alternative way.
 
 For start the project:  
 1. Go to the `kit` directory of project in your preferred command-line shell;
@@ -100,7 +100,7 @@ It will download 2 docker images (java and postgres) and create the docker image
 Then docker compose will start 2 containers (postgres and application)   
 
 1. `gradle build` task combine several default inner gradle tasks. Among other, it will perform several custom tasks.
-When you run it, the second steps will performed:
+When you run it, the second steps will be performed:
      * `copyDockerfile` will copy DockerFile from `./container/docker` to `./build/libs` directory.
        This file contains the instructions for a docker to build the Kit application image; 
      * When `processResources` runs, additional steps will perform:
@@ -116,7 +116,7 @@ When you run it, the second steps will performed:
        This plugin is responsible for starts the application and waits till all containers become healthy
        and all exposed TCP ports are open (so till the application is ready);
        Logs will available in `kit/backend/app/build/logs` directory;
-     * Tests will performed after containers start to be ready to work;
+     * Tests will be performed after containers start to be ready to work;
      * Then it down and remove the containers.
 2. On this step expected that docker contains 3 images: postgres, openjdk and Kit application.
 ~~(Actually, Kit application will create 2 additional hides intermediate images. 

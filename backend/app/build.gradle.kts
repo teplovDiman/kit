@@ -6,6 +6,7 @@ plugins {
     id("org.springframework.boot")
     id("io.spring.dependency-management")
     id("com.avast.gradle.docker-compose")
+    id("io.gitlab.arturbosch.detekt")
     kotlin("jvm")
     kotlin("plugin.spring")
     kotlin("plugin.jpa")
@@ -48,9 +49,11 @@ dependencies {
     testAnnotationProcessor("org.mapstruct:mapstruct-processor:" + findProperty("mapstruct_version"))
 
     kapt("org.mapstruct:mapstruct-jdk8:" + findProperty("mapstruct_version"))
+
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.18.1")
 }
 
-//-------------------- Configuration tasks --------------
+// -------------------- Configuration tasks --------------
 
 allOpen {
     annotation("javax.persistence.Entity")
@@ -78,7 +81,7 @@ tasks.bootJar {
     archiveFileName.set("${rootProject.name}.jar")
 }
 
-//-------------------- Kit project tasks ----------------
+// -------------------- Kit project tasks ----------------
 
 tasks.register<Copy>("copyDockerfile") {
     from("./docker")
@@ -118,7 +121,7 @@ tasks.withType<ProcessResources> {
 
 task<Exec>("clearUp") {
     // 1 - docker containers: down
-    exec { commandLine(shellType, "-c", "yes \"y\" | docker container prune")}
+    exec { commandLine(shellType, "-c", "yes \"y\" | docker container prune") }
 
     // 2 - docker image: remove application
     // todo: ugly way to get output of the commandLine
@@ -139,7 +142,7 @@ task<Exec>("clearUp") {
     commandLine(shellType, "-c", "echo Docker clear up finisher")
 }
 
-//-------------------------------------------------------
+// -------------------------------------------------------
 
 dockerCompose {
     projectName = rootProject.name
@@ -149,6 +152,13 @@ dockerCompose {
     composeLogToFile = File("backend/app/build/logs/composeUp.log")
     captureContainersOutputToFiles = File("backend/app/build/logs")
 }
+
+detekt {
+    buildUponDefaultConfig = true
+    config = files("$projectDir/../tools/detekt/detekt-config.yml")
+}
+
+// -------------------------------------------------------
 
 dockerCompose.isRequiredBy(project.tasks.named("bootRun").get())
 dockerCompose.isRequiredBy(project.tasks.named("test").get())

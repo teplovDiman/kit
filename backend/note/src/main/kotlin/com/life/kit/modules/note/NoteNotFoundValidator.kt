@@ -1,3 +1,7 @@
+// region Suppresses
+@file:Suppress("unused")
+// endregion
+
 package com.life.kit.modules.note
 
 import javax.validation.Constraint
@@ -17,7 +21,7 @@ annotation class NoteNotFound(
 
 )
 
-class NoteNotFoundValidator (
+class NoteNotFoundValidator(
 
   private val noteRepository: NoteRepository
 

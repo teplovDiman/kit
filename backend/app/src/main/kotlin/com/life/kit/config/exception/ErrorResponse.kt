@@ -1,8 +1,12 @@
+// region Suppresses
+@file:Suppress("unused")
+// endregion
+
 package com.life.kit.config.exception
 
 import java.time.LocalDateTime
 
-class ErrorResponse (
+class ErrorResponse(
   val timestamp: LocalDateTime,
   val path: String,
   val status: Int = 0,

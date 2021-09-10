@@ -1,9 +1,9 @@
-package com.life.kit.modules.user_role_permission.user
+package com.life.kit.modules.userRolePermission.user
 
 import org.springframework.stereotype.Component
 
 @Component
-class UserHelper{
+class UserHelper {
 
   fun getCurrentUserId(): Long {
     return 1 // TODO: Mocked. Need to implement it
