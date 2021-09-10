@@ -1,3 +1,7 @@
+// region Suppresses
+@file:Suppress("SpreadOperator")
+// endregion
+
 package com.life.kit
 
 import org.springframework.boot.autoconfigure.SpringBootApplication

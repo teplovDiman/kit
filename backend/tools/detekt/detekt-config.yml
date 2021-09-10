@@ -1,0 +1,14 @@
+style:
+  MaxLineLength:
+    maxLineLength: 150
+    excludePackageStatements: false
+    excludeImportStatements: false
+  ReturnCount:
+    active: false
+  ForbiddenComment:
+    active: false
+formatting:
+  MaximumLineLength:
+    maxLineLength: 150
+  ParameterListWrapping:
+    indentSize: 2

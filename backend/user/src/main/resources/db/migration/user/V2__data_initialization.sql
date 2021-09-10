@@ -1,3 +1,5 @@
+-- noinspection SpellCheckingInspectionForFile
+
 set search_path to users;
 
 -------------------- profile -------------------------

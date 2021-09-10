@@ -1,7 +1,7 @@
 package com.life.kit.modules.note
 
 import com.life.kit.common.getOneById
-import com.life.kit.modules.user_role_permission.user.UserHelper
+import com.life.kit.modules.userRolePermission.user.UserHelper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull

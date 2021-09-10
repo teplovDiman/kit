@@ -1,9 +1,13 @@
-package com.life.kit.modules.user_role_permission.user
+// region Suppresses
+@file:Suppress("unused")
+// endregion
+
+package com.life.kit.modules.userRolePermission.user
 
 import com.life.kit.common.BaseEntity
 import com.life.kit.config.UserDatabaseConfig
 import com.life.kit.modules.profile.ProfileEntity
-import com.life.kit.modules.user_role_permission.role.RoleEntity
+import com.life.kit.modules.userRolePermission.role.RoleEntity
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType.LAZY

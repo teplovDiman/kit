@@ -20,7 +20,7 @@ import javax.validation.ConstraintViolationException
 private val log = KotlinLogging.logger {}
 
 @RestControllerAdvice
-class KitExceptionHandler (
+class KitExceptionHandler(
 
   private val kitHelper: KitHelper
 
@@ -60,18 +60,15 @@ class KitExceptionHandler (
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   fun handleBodyIsNull(request: HttpServletRequest, httpMessageNotReadableException: HttpMessageNotReadableException): ErrorResponse {
     // TODO: This method is the crutch entirely. See more information in the KIT-43 issue
-    if (httpMessageNotReadableException.message == null) {
+    val originalMessage = httpMessageNotReadableException.message
+    val message: String
+    if (originalMessage == null) {
       return handleUnexpectedException(request, httpMessageNotReadableException)
-    }
-    val message: String = when {
-      httpMessageNotReadableException.message!!.startsWith(POST_BODY_MISSING) -> {
-        POST_BODY_MISSING
-      }
-      httpMessageNotReadableException.message!!.startsWith(BODY_MALFORMED) -> {
-        httpMessageNotReadableException.message!!
-      }
-      else -> {
-        return handleUnexpectedException(request, httpMessageNotReadableException)
+    } else {
+      message = when {
+        originalMessage.startsWith(POST_BODY_MISSING) -> POST_BODY_MISSING
+        originalMessage.startsWith(BODY_MALFORMED) -> originalMessage
+        else -> return handleUnexpectedException(request, httpMessageNotReadableException)
       }
     }
     return ErrorResponse(
@@ -88,7 +85,7 @@ class KitExceptionHandler (
   fun handleUnexpectedException(request: HttpServletRequest, runtimeException: RuntimeException): ErrorResponse {
     if (log.isErrorEnabled) {
       log.error("Internal Server Error. URI Path: {}", request.requestURI)
-      log.error("Internal Server Error. Message: {}", HtmlUtils.htmlEscape(runtimeException.message?: ""))
+      log.error("Internal Server Error. Message: {}", HtmlUtils.htmlEscape(runtimeException.message ?: ""))
       log.error("Internal Server Error. StackTrace: {}", runtimeException.stackTrace)
     }
     return ErrorResponse(kitHelper.getLocalDateTimeNow(),
@@ -107,7 +104,7 @@ class KitExceptionHandler (
   }
 
   private fun getTarget(violation: ConstraintViolation<*>): String {
-    return if (violation.rootBeanClass.annotations.any { x -> x is Service}) {
+    return if (violation.rootBeanClass.annotations.any { x -> x is Service }) {
       StringUtils.substringAfter(violation.propertyPath.toString(), ".")
     } else {
       violation.propertyPath.toString()

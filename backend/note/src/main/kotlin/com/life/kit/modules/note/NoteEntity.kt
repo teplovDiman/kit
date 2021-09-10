@@ -2,8 +2,8 @@ package com.life.kit.modules.note
 
 import com.life.kit.common.BaseEntity
 import com.life.kit.config.NoteDatabaseConfig
-import com.life.kit.modules.user_role_permission.common.AuditableEntity
-import com.life.kit.modules.user_role_permission.user.UserEntity
+import com.life.kit.modules.userRolePermission.common.AuditableEntity
+import com.life.kit.modules.userRolePermission.user.UserEntity
 import java.time.LocalDateTime
 import javax.persistence.Column
 import javax.persistence.Entity
