@@ -66,10 +66,6 @@ allOpen {
     annotation("org.springframework.boot.test.context.SpringBootTest")
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
@@ -146,11 +142,11 @@ task<Exec>("clearUp") {
 
 dockerCompose {
     projectName = rootProject.name
-    environment["APPLICATION_NAME"] = rootProject.name
-    environment["POSTGRES_VOLUME_NAME"] = "${rootProject.name}_volume"
+    environment.put("APPLICATION_NAME", rootProject.name)
+    environment.put("POSTGRES_VOLUME_NAME", "${rootProject.name}_volume")
     useComposeFiles.add("docker-compose.yml")
-    composeLogToFile = File("backend/app/build/logs/composeUp.log")
-    captureContainersOutputToFiles = File("backend/app/build/logs")
+    composeLogToFile.set(project.file("build/logs/composeUp.log"))
+    captureContainersOutputToFiles.set(project.file("build/logs"))
 }
 
 detekt {
@@ -158,12 +154,11 @@ detekt {
     config = files("$projectDir/../tools/detekt/detekt-config.yml")
 }
 
-// -------------------------------------------------------
+// -------------------- Task order -----------------------
 
-dockerCompose.isRequiredBy(project.tasks.named("bootRun").get())
-dockerCompose.isRequiredBy(project.tasks.named("test").get())
-
-project.tasks.named("clean").get().dependsOn("clearUp")
-project.tasks.named("composeUp").get().dependsOn("compileTestKotlin")
-
-project.tasks.named("assemble").get().finalizedBy("copyDockerfile")
+dockerCompose.isRequiredBy(tasks.named("bootRun").get())
+dockerCompose.isRequiredBy(tasks.named("test").get())
+tasks.named("clean").get().dependsOn("clearUp")
+tasks.named("composeUp").get().dependsOn("compileTestKotlin")
+tasks.named("assemble").get().finalizedBy("copyDockerfile")
+tasks.test { finalizedBy(tasks.jacocoTestReport) }
